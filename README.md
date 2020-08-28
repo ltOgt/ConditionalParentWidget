@@ -31,3 +31,14 @@
  return shouldIncludeParent ? SomeParentWidget(child: child) : child;
  ```
 
+## Import
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+
+  conditional_parent_widget:
+    git:
+      url: git@github.com:ltOgt/ConditionalParentWidget.git
+      ref: master
+```
