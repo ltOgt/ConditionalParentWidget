@@ -1,0 +1,16 @@
+name: conditional_parent_widget
+description: A new Flutter package project.
+version: 0.0.1
+author: ltogt
+homepage: https://github.com/ltOgt
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+
