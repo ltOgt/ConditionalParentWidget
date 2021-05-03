@@ -5,12 +5,12 @@ author: ltogt
 homepage: https://github.com/ltOgt
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-flutter:
-
+flutter: null
+dev_dependencies:
+  flutter_test_ui: ^1.0.0
