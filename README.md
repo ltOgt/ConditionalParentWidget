@@ -1,14 +1,44 @@
 # conditional_parent_widget
+ Conditionally wrap a subtree with a parent widget without breaking the code tree.
 
-A new Flutter package project.
+ * `condition`: the condition depending on which the subtree `child` is wrapped with the parent.
+ * `child`: The subtree that should always be build.
+ * `conditionalBuilder`: builds the parent with the subtree `child`.
 
-## Getting Started
+ ___________
+ Usage:
+ ```dart
+ return ConditionalParentWidget(
+   condition: shouldIncludeParent,
+   child: Widget1(
+     child: Widget2(
+       child: Widget3(),
+     ),
+   ),
+   conditionalBuilder: (Widget child) => SomeParentWidget(child: child),
+);
+ ```
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+ ___________
+ Instead of:
+ ```dart
+ Widget child = Widget1(
+   child: Widget2(
+     child: Widget3(),
+   ),
+ );
+///
+ return shouldIncludeParent ? SomeParentWidget(child: child) : child;
+ ```
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+## Import
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+
+  conditional_parent_widget:
+    git:
+      url: git@github.com:ltOgt/ConditionalParentWidget.git
+      ref: master
+```
