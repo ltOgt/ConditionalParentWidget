@@ -3,7 +3,7 @@
 
  * `condition`: the condition depending on which the subtree `child` is wrapped with the parent.
  * `child`: The subtree that should always be build.
- * `parentBuilder`: builds the parent with the subtree `child`.
+ * `parentBuilder`: builds the parent with the subtree `child` iff `condition` is true.
 
  ___________
  Usage:
