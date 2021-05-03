@@ -3,7 +3,7 @@
 
  * `condition`: the condition depending on which the subtree `child` is wrapped with the parent.
  * `child`: The subtree that should always be build.
- * `conditionalBuilder`: builds the parent with the subtree `child`.
+ * `parentBuilder`: builds the parent with the subtree `child`.
 
  ___________
  Usage:
@@ -15,7 +15,7 @@
        child: Widget3(),
      ),
    ),
-   conditionalBuilder: (Widget child) => SomeParentWidget(child: child),
+   parentBuilder: (Widget child) => SomeParentWidget(child: child),
 );
  ```
 
