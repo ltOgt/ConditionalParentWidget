@@ -1,7 +1,6 @@
 name: conditional_parent_widget
 description: Conditionally wrap a child widget with a parent widget.
 version: 0.0.1
-author: ltogt
 homepage: https://github.com/ltOgt/ConditionalParentWidget
 
 environment:
@@ -12,4 +11,5 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  flutter_test_ui: ^1.0.0
+  flutter_test:
+    sdk: flutter
