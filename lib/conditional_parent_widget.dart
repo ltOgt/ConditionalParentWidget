@@ -2,24 +2,33 @@ library conditional_parent_widget;
 
 import 'package:flutter/widgets.dart';
 
+typedef ParentBuilder = Widget Function(Widget child);
+
+/// {@template conditionalParent}
 /// Conditionally wrap a subtree with a parent widget without breaking the code tree.
 ///
-/// [condition]: the condition depending on which the subtree [child] is wrapped with the parent.
-/// [child]: The subtree that should always be build.
-/// [parentBuilder]: builds the parent with the subtree [child] iff [condition] is true.
+/// - [condition]           controls how/whether the [child] is wrapped.
+/// - [child]               the subtree that should always be build.
+/// - [parentBuilder]       build this parent with the subtree [child] if [condition] is `true`.
+/// - [parentBuilderElse]   build this parent with the subtree [child] if [condition] is `false`.
+///                         return [child] if [condition] is `false` and [parentBuilderElse] is null.
 ///
 /// ___________
-/// Usage:
+/// Tree will look like:
 /// ```dart
-/// return ConditionalParentWidget(
-///   condition: shouldIncludeParent,
-///   child: Widget1(
-///     child: Widget2(
-///       child: Widget3(),
+/// return SomeWidget(
+///   child: SomeOtherWidget(
+///     child: ConditionalParentWidget(
+///       condition: shouldIncludeParent,
+///       parentBuilder: (Widget child) => SomeParentWidget(child: child),
+///       child: Widget1(
+///         child: Widget2(
+///           child: Widget3(),
+///         ),
+///       ),
 ///     ),
 ///   ),
-///   parentBuilder: (Widget child) => SomeParentWidget(child: child),
-///);
+/// );
 /// ```
 ///
 /// ___________
@@ -31,32 +40,43 @@ import 'package:flutter/widgets.dart';
 ///   ),
 /// );
 ///
-/// return shouldIncludeParent ? SomeParentWidget(child: child) : child;
+/// return SomeWidget(
+///   child: SomeOtherWidget(
+///     child: shouldIncludeParent
+///       ? SomeParentWidget(child: child)
+///       : child
+///   ),
+/// );
 /// ```
-///
+/// {@endtemplate}
 class ConditionalParentWidget extends StatelessWidget {
+  /// {@macro conditionalParent}
   const ConditionalParentWidget({
-    Key? key,
+    super.key,
     required this.condition,
-    required this.child,
     required this.parentBuilder,
-  }) : super(key: key);
+    this.parentBuilderElse,
+    required this.child,
+  });
 
-  /// The [child] which should be conditionally wrapped by the parent.
-  ///
-  /// If [condition] is false, this Widget will be returned directly.
-  /// If [condition] is true, this Widget will be passed to [parentBuilder] which will be returned.
-  final Widget child;
-
-  /// The [condition] which controls whether the [child] is returned directly or passed to [parentBuilder].
+  /// The [condition] which controls how/whether the [child] is wrapped.
   final bool condition;
 
-  /// The [parentBuilder] will be called only when [condition] is true.
-  /// Its [child] parameter is the [child] passed to [ConditionalParentWidget].
-  final Widget Function(Widget child) parentBuilder;
+  /// The [child] which should be conditionally wrapped.
+  final Widget child;
+
+  /// Builder to wrap [child] when [condition] is `true`.
+  final ParentBuilder? parentBuilder;
+
+  /// Optional builder to wrap [child] when [condition] is `false`.
+  ///
+  /// [child] is returned directly when this is `null`.
+  final ParentBuilder? parentBuilderElse;
 
   @override
   Widget build(BuildContext context) {
-    return condition ? this.parentBuilder(this.child) : this.child;
+    return condition //
+        ? parentBuilder?.call(child) ?? child
+        : parentBuilderElse?.call(child) ?? child;
   }
 }
